@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# This script displays the file names in the current directory (name displayed is name after first dash displayed)
+
+for file in *; do
+	if [[ ! $file == .* && -f "$file" ]]; then
+		new=$(echo "$file" | cut -d '-' -f 2-)
+		echo "$new"
+	fi
+done

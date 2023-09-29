@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# This scirpt kills task 4's program
+
+pkill -f 7-highlander

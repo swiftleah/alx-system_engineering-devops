@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# This script will configure an ubuntu serve with specific IP addresses to localhost and facebook.com
+
+cp /etc/hosts ~/hosts.new
+echo "127.0.0.1 localhost" > ~newhosts
+echo "8.8.8.8   facebook.com" >> ~newhosts
+cp -f ~/hosts.new /etc/hosts

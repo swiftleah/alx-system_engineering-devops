@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # installs nginx and prints Hello World!
-apt-get -y update
-apt-get -y install nginx
+sudo apt-get -y update
+sudo apt-get -y install nginx
 
-service nginx start
+sudo service nginx start
 echo "Hello World!" > /var/www/html/index.html

@@ -1,19 +1,28 @@
 #!/usr/bin/env bash
-# configures domain zone so subdomain points to load balancer IP
+# configures domain zone so subdomain points to ur load-balancer IP
 
 
-if [ "$#" = 1 ]
-then
-    subdomains=("www" "lb-01" "web-01" "web-02")
-    for sub_domain in "${subdomains[@]}"
-    do
-	record_type=$(dig $sub_domain.$1 | grep -A1 'ANSWER SECTION' | tail -1 | awk '{print $4}')
-        destination=$(dig $sub_domain.$1 | grep -A1 'ANSWER SECTION' | tail -1 | awk '{print $5}')
-	echo "The subdomain $sub_domain is a $record_type record and points to $destination"
+get_dns_info() {
+    domain=$1
+    subdomain=$2
+
+    if [ -z "$subdomain" ]; then
+        subdomains=("www" "lb-01" "web-01" "web-02")
+    else
+        subdomains=("$subdomain")
+    fi
+
+    for sub in "${subdomains[@]}"; do
+        result=$(dig "$sub.$domain" | awk '/ANSWER SECTION/ {getline; print}')
+        record_type=$(echo "$result" | awk '{print $4}')
+        destination=$(echo "$result" | awk '{print $5}')
+        
+        echo "The subdomain $sub is a $record_type record and points to $destination"
     done
-elif [ "$#" = 2 ]
-then
-    record_type=$(dig $2.$1 | grep -A1 'ANSWER SECTION' | tail -1 | awk '{print $4}')
-    destination=$(dig $2.$1 | grep -A1 'ANSWER SECTION' | tail -1 | awk '{print $5}')
-    echo "The subdomain $2 is a $record_type record and points to $destination"
+}
+
+if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+    echo "Usage: $0 <domain> [subdomain]"
+    exit 1
 fi
+get_dns_info "$1" "$2"

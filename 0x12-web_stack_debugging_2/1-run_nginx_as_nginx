@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 #makes sure that nginx is running as the nginx user
 apt-get update
 apt-get install -y nginx

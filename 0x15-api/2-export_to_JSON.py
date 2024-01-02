@@ -1,4 +1,4 @@
-#!/usr/bin/pythons3
+#!/usr/bin/python3
 """ this script exports in the JSON format """
 import json
 import requests

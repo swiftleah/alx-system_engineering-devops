@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """ this script uses REST API for a given employee ID & returns
     info about his/her TODO list & its progress """
-import sys
 import requests
+import sys
 
 
 if __name__ == "__main__":
